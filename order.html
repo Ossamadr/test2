@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Details</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Cairo", sans-serif;
+            background: linear-gradient(#ffffff, #eae9e9);
+        }
+
+        .error-message {
+            font-size: 12px;
+            color: red;
+        }
+
+        input {
+            height: 35px;
+            width: 100%;
+            font-size: 18px;
+            padding: 0 5px;
+            background: #fff;
+            border: 1px solid #000;
+            outline: none;
+            margin-bottom: 10px;
+            border-radius: 10px;
+        }
+
+        input:focus,
+        select:focus {
+            border: 1px solid #15b1d4;
+            box-shadow: 0px 0px 5px 1px #15b1d4;
+        }
+
+        select {
+            height: 40px;
+            background: white;
+            margin-bottom: 10px;
+            border-radius: 10px;
+        }
+
+        #quantity {
+            width: 50px;
+        }
+
+        .container {
+            width: 500px;
+            max-width: 95%;
+            margin: 20px auto;
+        }
+
+        form {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container .imagePrice {
+            width: 100%;
+            height: 100px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 20px 0;
+            border: 1px solid #000;
+            padding: 5px;
+            border-radius: 10px;
+            box-shadow: 1px 1px 1px 1px #afafaf;
+            background: #fff;
+        }
+
+        .container .imagePrice img {
+            height: 100%;
+        }
+
+        .container .imagePrice #product-price {
+            font-size: 27px;
+            color: rgb(171, 9, 9);
+        }
+
+        .container #product-name {
+            font-size: 25px;
+            border: none;
+            color: green;
+            outline: none;
+            background-color: transparent;
+        }
+
+        /* button */
+        .button {
+            position: relative;
+            padding: 10px 22px;
+            width: 150px;
+            height: auto;
+            border-radius: 6px;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            background-color: #0e8435;
+            transition: all 0.2s ease;
+            margin: 15px auto;
+            font-size: 18px;
+        }
+
+        .button:active {
+            transform: scale(0.96);
+        }
+
+        .error {
+            border: 1px solid red;
+        }
+
+        .box {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .product-details {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        #product-price {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        #product-image {
+            max-width: 300px;
+            max-height: 300px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container" dir="rtl">
+        <div class="box">
+            <div class="product-details">
+                <p style="color: #be1232; font-size: 35px;" id="product-price">Product Price</p>
+            </div>
+            <img id="product-image" src="" alt="Product Image">
+        </div>
+
+        <form id="orderForm" action="https://example.com/submit" method="POST">
+            <label for="quantity">إسم المنتج</label>
+            <input type="text" id="product-name" name="اسم المنتج" placeholder="Product Name" readonly>
+
+            <label for="quantity">الكمية:</label>
+            <input type="number" id="quantity" name="الكمية" min="1" value="1" required>
+
+            <label for="fullname">الاسم الكامل*</label>
+            <input placeholder="أدخل إسمك" type="text" id="fullname" name="الاسم الكامل" required>
+
+            <label for="phone">رقم الهاتف</label>
+            <input dir="rtl" placeholder="اختياري" type="tel" id="phone" name="رقم الهاتف">
+
+            <label for="">إختر أحد الخيارات</label>
+            <select name="المرض المزمن" id="state">
+                <option disabled selected>اختر مرض مزمن</option>
+                <option>ضغط الدم</option>
+                <option>أمراض القلب و الأوعية الدموية</option>
+                <option>السرطان</option>
+                <option>السكري</option>
+                <option>السمنة</option>
+                <option>مشاكل صحة الفم</option>
+                <option>الفشل الكلوي</option>
+                <option>الجلوكوما</option>
+                <option>قصور الغدة الدرقية</option>
+                <option>التصلب اللويحي</option>
+                <option>أمراض الجهاز الهضمي</option>
+                <option>ارتفاع الدهنيات</option>
+                <option>مرض سيولة الدم</option>
+                <option>الحمية الخاصة</option>
+            </select>
+
+
+            <label for="state">العنوان</label>
+            <input placeholder="عنوان السكن" type="text" id="state" name="state" required>
+
+            <button type="submit" class="button">أطلب الان</button>
+        </form>
+        <p style="text-align: center; font-size: 22px; color: #be1232;">سيتم التواصل معكم عبر رقم الهاتف</p>
+
+    </div>
+
+    <script>
+        // Extract data from the URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const productName = urlParams.get('productName');
+        const productPrice = urlParams.get('price');
+        const productImage = urlParams.get('image');
+        const productDescription = urlParams.get('description');
+
+        // Display the data on the page
+        document.getElementById('product-price').textContent = ` ${productPrice} دج `;
+        document.getElementById('product-image').src = decodeURIComponent(productImage);
+
+        // Set product name if available
+        const productNameInput = document.getElementById('product-name');
+        if (productName) {
+            productNameInput.value = productName;
+        }
+
+        // Set product description if available
+        const descriptionElement = document.getElementById('product-description');
+        if (productDescription) {
+            descriptionElement.textContent = productDescription;
+        }
+    </script>
+</body>
+
+</html>
